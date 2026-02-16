@@ -1,10 +1,9 @@
-import { GoogleGenAI, Type, Schema } from "@google/genai";
+import { GoogleGenAI, Type } from "@google/genai";
 import { RESEARCH_CONTEXT } from "../constants";
 import { AiGeneratedPlan, UserContext } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
-const generatedPlanSchema: Schema = {
+// Schema for the AI generated business plan
+const generatedPlanSchema = {
   type: Type.OBJECT,
   properties: {
     businessName: {
@@ -17,55 +16,118 @@ const generatedPlanSchema: Schema = {
     },
     monetizationStrategy: {
       type: Type.STRING,
-      description: "How the business makes money (specific numbers based on research context)."
+      description: "Detailed revenue model including margins and projected LTV."
+    },
+    moatStrategy: {
+      type: Type.STRING,
+      description: "The unique competitive advantage (e.g., specific skills integration, local regulatory arbitrage)."
+    },
+    riskRewardScore: {
+      type: Type.OBJECT,
+      properties: {
+        risk: { type: Type.NUMBER, description: "1-10 scale" },
+        reward: { type: Type.NUMBER, description: "1-10 scale" }
+      },
+      required: ["risk", "reward"],
+      propertyOrdering: ["risk", "reward"]
     },
     complianceNote: {
       type: Type.STRING,
-      description: "Specific regulatory warning or advice based on the business type (FDA, Research Only, etc)."
+      description: "Detailed regulatory guidance (e.g., specific legal statutes to research in the target location)."
     },
     stepsToLaunch: {
       type: Type.ARRAY,
       items: { type: Type.STRING },
-      description: "5 actionable steps to start."
+      description: "5 actionable, high-level strategic steps."
+    },
+    competitorAnalysis: {
+      type: Type.OBJECT,
+      properties: {
+        profiles: {
+          type: Type.ARRAY,
+          items: {
+            type: Type.OBJECT,
+            properties: {
+              name: { type: Type.STRING },
+              description: { type: Type.STRING },
+              competitiveEdge: { type: Type.STRING }
+            },
+            required: ["name", "description", "competitiveEdge"]
+          }
+        },
+        suggestedSearchTerms: {
+          type: Type.ARRAY,
+          items: { type: Type.STRING }
+        }
+      },
+      required: ["profiles", "suggestedSearchTerms"],
+      propertyOrdering: ["profiles", "suggestedSearchTerms"]
     }
   },
-  required: ["businessName", "elevatorPitch", "monetizationStrategy", "complianceNote", "stepsToLaunch"]
+  required: [
+    "businessName", 
+    "elevatorPitch", 
+    "monetizationStrategy", 
+    "moatStrategy", 
+    "riskRewardScore", 
+    "complianceNote", 
+    "stepsToLaunch",
+    "competitorAnalysis"
+  ],
+  propertyOrdering: [
+    "businessName", 
+    "elevatorPitch", 
+    "monetizationStrategy", 
+    "moatStrategy", 
+    "riskRewardScore", 
+    "complianceNote", 
+    "stepsToLaunch",
+    "competitorAnalysis"
+  ]
 };
 
+/**
+ * Generates a detailed business plan based on user context using Gemini 3 Pro.
+ */
 export const generateBusinessPlan = async (userContext: UserContext): Promise<AiGeneratedPlan> => {
-  if (!process.env.API_KEY) {
-    throw new Error("API Key is missing");
-  }
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
   const prompt = `
-    You are a senior Biotech Business Strategist.
-    Using the following Research Context, generate a specific, viable business plan for a user.
+    You are a world-class Biotech Strategist and Partner at a Tier-1 VC firm.
     
+    RESEARCH NUGGETS:
     ${RESEARCH_CONTEXT}
 
-    User Profile:
+    USER CONTEXT:
     - Budget: ${userContext.budget}
-    - Skills/Background: ${userContext.skills}
+    - Skills/Edge: ${userContext.skills}
     - Location: ${userContext.location}
-    - Target Market Segment: ${userContext.targetMarket}
-    - Preferred Business Model: ${userContext.businessModel}
+    - Target Market: ${userContext.targetMarket}
+    - Business Model: ${userContext.businessModel}
 
-    Create a transformative business concept that fits their constraints and leverages the open regulatory environment (or navigates current ones cleverly).
+    OBJECTIVE:
+    Generate a transformative business blueprint that exploits current regulatory openings in health and biotech.
     
-    CRITICAL INSTRUCTIONS:
-    1. If "Preferred Business Model" is specified (not "Any"), the plan MUST use that model. For example, if "SaaS", do not suggest a physical clinic.
-    2. Focus specifically on the "Target Market Segment" provided.
-    3. Be realistic about costs and regulations.
+    COMPETITOR ANALYSIS TASK:
+    Analyze the competitive landscape for this specific idea in ${userContext.location}. 
+    Provide 3 hypothetical or representative competitor profiles (Direct or Indirect).
+    Suggest 5 precise search terms for the user to conduct deep local market research.
+
+    STRATEGIC REQUIREMENTS:
+    1. PROPOSED MOAT: Identify a "moat" based on the user's specific location and skills.
+    2. REGULATORY ARBITRAGE: Suggest ways to navigate the 503A/503B compounding divide or "Research Only" paths safely.
+    3. NUMBERS: Provide realistic financial benchmarks based on the research context.
   `;
 
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
+      model: 'gemini-3-pro-preview',
       contents: prompt,
       config: {
         responseMimeType: "application/json",
         responseSchema: generatedPlanSchema,
-        temperature: 0.7,
+        temperature: 0.75,
+        thinkingConfig: { thinkingBudget: 2000 }
       }
     });
 

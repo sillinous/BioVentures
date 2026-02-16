@@ -11,6 +11,8 @@ export interface BusinessOpportunity {
   title: string;
   sector: Sector;
   description: string;
+  regulatoryHurdles: string;
+  fundingLandscape: string;
   revenuePotential: string;
   barrierToEntry: 'Low' | 'Medium' | 'High' | 'Very High';
   regulatoryRisk: 'Low' | 'Medium' | 'High';
@@ -25,10 +27,25 @@ export interface UserContext {
   businessModel: string;
 }
 
+export interface CompetitorProfile {
+  name: string;
+  description: string;
+  competitiveEdge: string;
+}
+
 export interface AiGeneratedPlan {
   businessName: string;
   elevatorPitch: string;
   monetizationStrategy: string;
+  moatStrategy: string;
+  riskRewardScore: {
+    risk: number;
+    reward: number;
+  };
   complianceNote: string;
   stepsToLaunch: string[];
+  competitorAnalysis: {
+    profiles: CompetitorProfile[];
+    suggestedSearchTerms: string[];
+  };
 }
