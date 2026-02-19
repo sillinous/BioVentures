@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { EXISTING_OPPORTUNITIES } from './constants';
 import { Sector } from './types';
 import MarketChart from './components/MarketChart';
+import RiskRewardChart from './components/RiskRewardChart';
 import IdeaGenerator from './components/IdeaGenerator';
 import { 
   Building2, 
@@ -14,9 +15,14 @@ import {
   X,
   TrendingUp,
   Filter,
-  Search,
   Scale,
-  Coins
+  Coins,
+  Dna,
+  Zap,
+  Microscope,
+  Stethoscope,
+  Activity,
+  BatteryCharging
 } from 'lucide-react';
 
 const SectorBadge: React.FC<{ sector: Sector }> = ({ sector }) => {
@@ -26,6 +32,7 @@ const SectorBadge: React.FC<{ sector: Sector }> = ({ sector }) => {
     [Sector.PRODUCT]: 'bg-rose-100 text-rose-800 border-rose-200',
     [Sector.TECH_SAAS]: 'bg-violet-100 text-violet-800 border-violet-200',
     [Sector.MANUFACTURING]: 'bg-slate-100 text-slate-800 border-slate-200',
+    [Sector.REGENERATIVE]: 'bg-amber-100 text-amber-800 border-amber-200',
   };
 
   return (
@@ -37,11 +44,12 @@ const SectorBadge: React.FC<{ sector: Sector }> = ({ sector }) => {
 
 const IconForSector: React.FC<{ sector: Sector }> = ({ sector }) => {
   switch (sector) {
-    case Sector.CLINICAL: return <Building2 className="w-5 h-5 text-emerald-600" />;
+    case Sector.CLINICAL: return <Stethoscope className="w-5 h-5 text-emerald-600" />;
     case Sector.SUPPLY_CHAIN: return <Truck className="w-5 h-5 text-blue-600" />;
     case Sector.PRODUCT: return <TestTube2 className="w-5 h-5 text-rose-600" />;
     case Sector.TECH_SAAS: return <Laptop2 className="w-5 h-5 text-violet-600" />;
     case Sector.MANUFACTURING: return <Factory className="w-5 h-5 text-slate-600" />;
+    case Sector.REGENERATIVE: return <Dna className="w-5 h-5 text-amber-600" />;
     default: return <Building2 className="w-5 h-5" />;
   }
 };
@@ -76,7 +84,7 @@ const App: React.FC = () => {
                 onClick={() => setActiveTab('market')}
                 className={`px-4 py-2 text-sm font-bold transition-all rounded-lg ${activeTab === 'market' ? 'bg-slate-100 text-indigo-600' : 'text-slate-500 hover:bg-slate-50'}`}
               >
-                Market Intelligence
+                Intelligence
               </button>
               <button 
                 onClick={() => setActiveTab('generate')}
@@ -96,64 +104,72 @@ const App: React.FC = () => {
       </nav>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        {/* Dynamic Content */}
         {activeTab === 'market' ? (
           <div className="space-y-12 animate-fade-in">
-            {/* Featured Insight Banner */}
-            <div className="bg-gradient-to-r from-slate-900 to-indigo-900 rounded-3xl p-8 text-white relative overflow-hidden shadow-2xl">
-              <div className="relative z-10 max-w-2xl">
-                <h1 className="text-4xl md:text-6xl font-black mb-4 leading-none tracking-tighter">
-                  Capitalize on the <span className="text-indigo-400">Biological Gold Rush</span>
+            {/* Hero Insight Banner */}
+            <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950 rounded-[2.5rem] p-10 text-white relative overflow-hidden shadow-2xl border border-white/5">
+              <div className="relative z-10 max-w-3xl">
+                <div className="flex items-center gap-2 mb-6">
+                  <span className="px-3 py-1 bg-indigo-500/20 rounded-full text-indigo-400 text-[10px] font-black uppercase tracking-widest border border-indigo-500/30">Live Intelligence Feed</span>
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                </div>
+                <h1 className="text-5xl md:text-7xl font-black mb-6 leading-[0.9] tracking-tighter">
+                  The <span className="bg-gradient-to-r from-indigo-400 to-emerald-400 bg-clip-text text-transparent">Regenerative</span> Economy is Here.
                 </h1>
-                <p className="text-lg text-slate-300 font-medium mb-6">
-                  The deregulation of the peptide economy is opening multi-billion dollar verticals in 
-                  longevity, mental performance, and personalized compounding.
+                <p className="text-xl text-slate-400 font-medium mb-8 leading-relaxed max-w-xl">
+                  Build multi-modal longevity protocols. Leverage VNS, Mitochondrial optimization, and DeSci to architect the future of health.
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <button onClick={() => setActiveTab('generate')} className="bg-indigo-500 hover:bg-indigo-400 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-lg flex items-center gap-2">
-                    Architect Your Strategy <ArrowRight className="w-4 h-4" />
+                  <button onClick={() => setActiveTab('generate')} className="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-4 rounded-2xl font-black transition-all shadow-xl flex items-center gap-3">
+                    Architect New Venture <ArrowRight className="w-5 h-5" />
                   </button>
                 </div>
               </div>
-              <div className="absolute top-0 right-0 w-1/3 h-full opacity-10 pointer-events-none flex items-center justify-center">
-                 <TrendingUp className="w-64 h-64" />
+              <div className="absolute top-1/2 -right-20 -translate-y-1/2 w-96 h-96 opacity-10 pointer-events-none">
+                 <Dna className="w-full h-full text-white" />
               </div>
             </div>
 
-            {/* Market Data Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-              <div className="lg:col-span-2">
-                 <MarketChart />
-              </div>
-              <div className="space-y-4">
-                 <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                    <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Growth Hotspot</h3>
-                    <div className="text-3xl font-black text-slate-900 leading-tight">15% CAGR</div>
-                    <p className="text-sm text-slate-500 mt-2 font-medium">BPC-157 & Healing peptides are the fastest growing niche in the bio-distribution sector.</p>
+            {/* Trends Section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+               {[
+                 { title: 'Mitochondrial Alpha', growth: '+285%', icon: <BatteryCharging className="w-4 h-4 text-emerald-500" />, desc: 'Urolithin A & NAD+ cellular fueling.' },
+                 { title: 'VNS Bio-Electronics', growth: '+210%', icon: <Zap className="w-4 h-4 text-amber-500" />, desc: 'Systemic inflammation management via biofeedback.' },
+                 { title: 'Multi-Omic DeSci', growth: '+140%', icon: <Microscope className="w-4 h-4 text-indigo-500" />, desc: 'Crowdfunded longevity data marketplaces.' },
+                 { title: 'Phase 0 Clinics', growth: '+320%', icon: <Activity className="w-4 h-4 text-rose-500" />, desc: 'Rapid localized clinical data acquisition.' },
+               ].map((trend, i) => (
+                 <div key={i} className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="p-2 bg-slate-50 rounded-xl border border-slate-100">{trend.icon}</div>
+                      <span className="text-emerald-600 text-xs font-black">{trend.growth}</span>
+                    </div>
+                    <h4 className="text-sm font-black text-slate-900 mb-1 uppercase tracking-tight">{trend.title}</h4>
+                    <p className="text-xs text-slate-500 font-medium leading-relaxed">{trend.desc}</p>
                  </div>
-                 <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                    <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Strategic Location</h3>
-                    <div className="text-2xl font-black text-slate-900">Phoenix, Arizona</div>
-                    <p className="text-sm text-slate-500 mt-2 font-medium">Leading in "Right to Try" legislation and favorable tax structures for biotech startups.</p>
-                 </div>
-              </div>
+               ))}
+            </div>
+
+            {/* Market Charts Container */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <RiskRewardChart />
+              <MarketChart />
             </div>
 
             {/* Opportunities Feed */}
             <div>
-              <div className="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
+              <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
                 <div>
-                  <h2 className="text-3xl font-black text-slate-900 tracking-tight">Model Library</h2>
-                  <p className="text-slate-500 font-medium">Validated archetypes for the new wellness economy.</p>
+                  <h2 className="text-4xl font-black text-slate-900 tracking-tighter mb-2 uppercase">Venture Archetypes</h2>
+                  <p className="text-slate-500 font-medium text-lg">Validated models for the high-alpha regenerative landscape.</p>
                 </div>
                 
-                <div className="flex items-center gap-2 p-1.5 bg-white rounded-xl border border-slate-200 shadow-sm">
-                  <Filter className="w-4 h-4 text-slate-400 ml-2" />
+                <div className="flex flex-wrap items-center gap-2 p-1.5 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-x-auto">
+                  <Filter className="w-4 h-4 text-slate-400 ml-3" />
                   {['All', ...Object.values(Sector)].map((s) => (
                     <button 
                       key={s} 
                       onClick={() => setSelectedSector(s as Sector | 'All')}
-                      className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${selectedSector === s ? 'bg-slate-900 text-white' : 'text-slate-500 hover:bg-slate-50'}`}
+                      className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all whitespace-nowrap ${selectedSector === s ? 'bg-slate-900 text-white' : 'text-slate-500 hover:bg-slate-50'}`}
                     >
                       {s}
                     </button>
@@ -161,52 +177,52 @@ const App: React.FC = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredOpportunities.map((opp) => (
-                  <div key={opp.id} className="group bg-white p-6 rounded-2xl border border-slate-200 hover:border-indigo-400 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
-                    <div className="flex justify-between items-start mb-6">
-                      <div className="p-3 bg-slate-50 rounded-xl group-hover:bg-indigo-50 transition-colors border border-slate-100">
+                  <div key={opp.id} className="group bg-white p-8 rounded-[2.5rem] border border-slate-200 hover:border-indigo-400 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col h-full overflow-hidden relative">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-slate-100 group-hover:bg-indigo-500 transition-colors" />
+                    <div className="flex justify-between items-start mb-8">
+                      <div className="p-4 bg-slate-50 rounded-2xl group-hover:bg-indigo-50 transition-colors border border-slate-100">
                         <IconForSector sector={opp.sector} />
                       </div>
                       <SectorBadge sector={opp.sector} />
                     </div>
-                    <h3 className="text-lg font-black text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">{opp.title}</h3>
-                    <p className="text-slate-500 text-sm mb-4 leading-relaxed font-medium line-clamp-2">{opp.description}</p>
+                    <h3 className="text-2xl font-black text-slate-900 mb-4 group-hover:text-indigo-600 transition-colors tracking-tight leading-none">{opp.title}</h3>
+                    <p className="text-slate-500 text-sm mb-8 leading-relaxed font-medium line-clamp-3">{opp.description}</p>
                     
-                    {/* Expanded Intelligence Section */}
-                    <div className="mb-6 space-y-4">
-                      <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 group-hover:bg-indigo-50/30 transition-colors">
-                        <h4 className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">
-                          <Scale className="w-3 h-3" /> Regulatory Hurdles
+                    <div className="mb-8 space-y-4">
+                      <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 group-hover:bg-indigo-50/50 transition-colors">
+                        <h4 className="flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2">
+                          <Scale className="w-3 h-3" /> Regulatory Barrier
                         </h4>
-                        <p className="text-xs text-slate-600 font-medium leading-tight">
+                        <p className="text-xs text-slate-700 font-bold leading-tight">
                           {opp.regulatoryHurdles}
                         </p>
                       </div>
-                      <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 group-hover:bg-teal-50/30 transition-colors">
-                        <h4 className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">
-                          <Coins className="w-3 h-3" /> Funding Landscape
+                      <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 group-hover:bg-teal-50/50 transition-colors">
+                        <h4 className="flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2">
+                          <Coins className="w-3 h-3" /> Funding Pulse
                         </h4>
-                        <p className="text-xs text-slate-600 font-medium leading-tight">
+                        <p className="text-xs text-slate-700 font-bold leading-tight">
                           {opp.fundingLandscape}
                         </p>
                       </div>
                     </div>
 
-                    <div className="mt-auto space-y-3 pt-4 border-t border-slate-100">
-                      <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider">
-                        <span className="text-slate-400">Revenue potential</span>
-                        <span className="text-slate-900">{opp.revenuePotential}</span>
+                    <div className="mt-auto flex justify-between items-center pt-6 border-t border-slate-100">
+                      <div>
+                        <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Target Yield</div>
+                        <div className="text-sm font-black text-slate-900 tracking-tight">{opp.revenuePotential}</div>
                       </div>
-                      <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider">
-                         <span className="text-slate-400">Barrier</span>
-                         <span className={`${
-                           opp.barrierToEntry === 'Low' ? 'text-emerald-600' : 
-                           opp.barrierToEntry === 'High' ? 'text-amber-600' : 
-                           'text-rose-600'
+                      <div className="text-right">
+                        <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Risk Profile</div>
+                        <div className={`text-xs font-black uppercase tracking-tighter ${
+                           opp.regulatoryRisk === 'Low' ? 'text-emerald-500' : 
+                           opp.regulatoryRisk === 'Medium' ? 'text-amber-500' : 
+                           'text-rose-500'
                          }`}>
-                           {opp.barrierToEntry}
-                         </span>
+                           {opp.regulatoryRisk} Alpha
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -216,11 +232,11 @@ const App: React.FC = () => {
           </div>
         ) : (
           <div className="animate-fade-in py-6">
-             <div className="max-w-6xl mx-auto">
-                <div className="mb-10 text-center">
-                   <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tighter">Strategic Architect</h2>
-                   <p className="text-slate-500 text-lg max-w-2xl mx-auto font-medium">
-                     The AI Architect will analyze your budget, location, and skills to generate a high-alpha business blueprint with risk/reward scoring.
+             <div className="max-w-7xl mx-auto">
+                <div className="mb-14 text-center">
+                   <h2 className="text-5xl font-black text-slate-900 mb-6 tracking-tighter uppercase">Strategy Architect</h2>
+                   <p className="text-slate-500 text-xl max-w-2xl mx-auto font-medium leading-relaxed">
+                     Input variables to synthesize high-alpha localized business models using bio-electronics, mitochondrial optimization, and multi-omics.
                    </p>
                 </div>
                 <IdeaGenerator />
@@ -229,50 +245,53 @@ const App: React.FC = () => {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="bg-white border-t border-slate-200 mt-20 py-16">
+      <footer className="bg-white border-t border-slate-200 mt-20 py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <div className="flex flex-col md:flex-row justify-between items-start gap-12">
-              <div className="max-w-sm">
-                 <div className="flex items-center gap-3 mb-6">
-                    <div className="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center">
-                      <TrendingUp className="text-white w-4 h-4" />
+           <div className="flex flex-col md:flex-row justify-between items-start gap-16">
+              <div className="max-w-md">
+                 <div className="flex items-center gap-3 mb-8">
+                    <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center">
+                      <TrendingUp className="text-white w-5 h-5" />
                     </div>
-                    <span className="text-lg font-black tracking-tighter text-slate-900 uppercase">BioVenture Nexus</span>
+                    <span className="text-2xl font-black tracking-tighter text-slate-900 uppercase">BioVenture Nexus</span>
                  </div>
-                 <p className="text-slate-400 text-sm font-medium leading-relaxed">
-                   Decentralized tools for the new era of biological innovation. We bridge the gap between regulatory intelligence and entrepreneurship.
+                 <p className="text-slate-500 text-lg font-medium leading-relaxed">
+                   The secure intelligence layer for longevity founders. We navigate the gap between scientific discovery and commercialization in the regenerative era.
                  </p>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-12">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-16 flex-grow">
                  <div>
-                    <h4 className="font-bold text-slate-900 mb-4 uppercase text-[10px] tracking-widest">Navigation</h4>
-                    <ul className="space-y-2 text-sm font-medium text-slate-500">
-                       <li><button onClick={() => setActiveTab('market')} className="hover:text-indigo-600 transition-colors">Intelligence</button></li>
-                       <li><button onClick={() => setActiveTab('generate')} className="hover:text-indigo-600 transition-colors">Architect</button></li>
+                    <h4 className="font-black text-slate-900 mb-6 uppercase text-[10px] tracking-widest">Methods</h4>
+                    <ul className="space-y-4 text-sm font-bold text-slate-500">
+                       <li><a href="#" className="hover:text-indigo-600 transition-colors">VNS Protocols</a></li>
+                       <li><a href="#" className="hover:text-indigo-600 transition-colors">Mito-Optimization</a></li>
+                       <li><a href="#" className="hover:text-indigo-600 transition-colors">PBM Devices</a></li>
                     </ul>
                  </div>
                  <div>
-                    <h4 className="font-bold text-slate-900 mb-4 uppercase text-[10px] tracking-widest">Compliance</h4>
-                    <ul className="space-y-2 text-sm font-medium text-slate-500">
-                       <li><a href="#" className="hover:text-indigo-600 transition-colors">FDA Guidelines</a></li>
-                       <li><a href="#" className="hover:text-indigo-600 transition-colors">HIPAA Tech</a></li>
+                    <h4 className="font-black text-slate-900 mb-6 uppercase text-[10px] tracking-widest">Jurisdictions</h4>
+                    <ul className="space-y-4 text-sm font-bold text-slate-500">
+                       <li><a href="#" className="hover:text-indigo-600 transition-colors">Florida Hub</a></li>
+                       <li><a href="#" className="hover:text-indigo-600 transition-colors">Arizona Corridor</a></li>
+                       <li><a href="#" className="hover:text-indigo-600 transition-colors">DAO Governance</a></li>
                     </ul>
                  </div>
-                 <div className="col-span-2 sm:col-span-1">
-                    <h4 className="font-bold text-slate-900 mb-4 uppercase text-[10px] tracking-widest">Resources</h4>
-                    <ul className="space-y-2 text-sm font-medium text-slate-500">
-                       <li><a href="#" className="hover:text-indigo-600 transition-colors">API Docs</a></li>
-                       <li><a href="#" className="hover:text-indigo-600 transition-colors">Market Reports</a></li>
+                 <div>
+                    <h4 className="font-black text-slate-900 mb-6 uppercase text-[10px] tracking-widest">Nexus</h4>
+                    <ul className="space-y-4 text-sm font-bold text-slate-500">
+                       <li><a href="#" className="hover:text-indigo-600 transition-colors">Data Marketplace</a></li>
+                       <li><a href="#" className="hover:text-indigo-600 transition-colors">Investor Nodes</a></li>
+                       <li><a href="#" className="hover:text-indigo-600 transition-colors">DeSci Alliance</a></li>
                     </ul>
                  </div>
               </div>
            </div>
-           <div className="mt-16 pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-             <div>© 2025 BioVenture Nexus // v2.0-stable</div>
-             <div className="flex gap-8">
-               <a href="#" className="hover:text-slate-900">Privacy Protocol</a>
-               <a href="#" className="hover:text-slate-900">Terms of Service</a>
+           <div className="mt-24 pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
+             <div>© 2025 BioVenture Nexus Protocol // Secure Execution Layer</div>
+             <div className="flex gap-12">
+               <a href="#" className="hover:text-slate-900">Alpha Disclaimer</a>
+               <a href="#" className="hover:text-slate-900">Privacy Nodes</a>
+               <a href="#" className="hover:text-slate-900">Legal Architecture</a>
              </div>
            </div>
         </div>

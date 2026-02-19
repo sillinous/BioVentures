@@ -3,7 +3,8 @@ export enum Sector {
   SUPPLY_CHAIN = 'Supply Chain & Distribution',
   PRODUCT = 'Product & Retail',
   TECH_SAAS = 'Tech & SaaS',
-  MANUFACTURING = 'Manufacturing & R&D'
+  MANUFACTURING = 'Manufacturing & R&D',
+  REGENERATIVE = 'Regenerative & Longevity'
 }
 
 export interface BusinessOpportunity {
@@ -16,6 +17,9 @@ export interface BusinessOpportunity {
   revenuePotential: string;
   barrierToEntry: 'Low' | 'Medium' | 'High' | 'Very High';
   regulatoryRisk: 'Low' | 'Medium' | 'High';
+  // New fields for charting
+  yieldScore: number; // 1-10 (Financial Reward)
+  riskScore: number; // 1-10 (Regulatory/Execution Risk)
   tags: string[];
 }
 
@@ -33,19 +37,34 @@ export interface CompetitorProfile {
   competitiveEdge: string;
 }
 
+export interface FinancialTransparency {
+  startupCosts: {
+    legal: string;
+    researchAndDev: string;
+    marketing: string;
+  };
+  pricingModel: string;
+  fundingOptions: string[];
+  projectedProfitMargins: string;
+  breakEvenTimeline: string;
+  exitValuationEstimate: string;
+}
+
 export interface AiGeneratedPlan {
   businessName: string;
   elevatorPitch: string;
   monetizationStrategy: string;
   moatStrategy: string;
-  riskRewardScore: {
-    risk: number;
-    reward: number;
-  };
+  regulatoryRisk: number;
+  marketRisk: number;
+  executionRisk: number;
+  financialReward: number;
+  strategicReward: number;
   complianceNote: string;
   stepsToLaunch: string[];
   competitorAnalysis: {
     profiles: CompetitorProfile[];
     suggestedSearchTerms: string[];
   };
+  financialTransparency: FinancialTransparency;
 }

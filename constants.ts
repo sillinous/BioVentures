@@ -3,159 +3,182 @@ import { BusinessOpportunity, Sector } from './types';
 export const EXISTING_OPPORTUNITIES: BusinessOpportunity[] = [
   {
     id: '1',
-    title: 'Specialized Weight Loss Clinics',
+    title: 'Precision GLP-1 Optimization',
     sector: Sector.CLINICAL,
-    description: 'Physical or virtual clinics offering GLP-1 injections, coaching, and plans. High recurring revenue potential.',
-    regulatoryHurdles: 'Requires 503A/B sourcing compliance and medical oversight licenses.',
+    description: 'Combining metabolic peptides with continuous glucose monitoring (CGM) and AI coaching for long-term weight maintenance.',
+    regulatoryHurdles: 'Requires 503A sourcing compliance and medical oversight licenses.',
     fundingLandscape: 'High PE/VC interest; massive M&A potential from big-box retailers.',
-    revenuePotential: '$300/mo per patient',
+    revenuePotential: '$450/mo per patient',
     barrierToEntry: 'Medium',
     regulatoryRisk: 'Medium',
-    tags: ['GLP-1', 'Telehealth', 'Subscription']
+    yieldScore: 7.5,
+    riskScore: 5.0,
+    tags: ['Metabolic', 'Telehealth', 'AI']
   },
   {
-    id: '2',
-    title: 'Compounding Pharmacy Partnership',
-    sector: Sector.SUPPLY_CHAIN,
-    description: 'Partner with suppliers for custom semaglutide formulations. Focus on FDA-compliant storage.',
-    regulatoryHurdles: 'Strict DQSA compliance and state pharmacy board inspections.',
-    fundingLandscape: 'Asset-heavy; often debt-financed or funded by health conglomerates.',
-    revenuePotential: '22% Annual Growth',
+    id: 'reg-1',
+    title: 'Exosome Distribution Network',
+    sector: Sector.REGENERATIVE,
+    description: 'Cold-chain logistics for MSC-derived exosomes used in topical aesthetics and localized joint repair applications.',
+    regulatoryHurdles: 'Strict biologic storage requirements and FDA IND pathways for non-topical use.',
+    fundingLandscape: 'High-growth niche; popular with family offices focused on biotech logistics.',
+    revenuePotential: '$5M - $15M Annual',
     barrierToEntry: 'High',
     regulatoryRisk: 'High',
-    tags: ['B2B', 'Pharmacy', 'Logistics']
+    yieldScore: 8.8,
+    riskScore: 8.5,
+    tags: ['Biologics', 'Logistics', 'Supply Chain']
   },
   {
-    id: '3',
-    title: 'Peptide Research Distribution',
-    sector: Sector.SUPPLY_CHAIN,
-    description: 'Sell high-purity peptides B2B to labs and universities. Requires strict "Research Only" compliance.',
-    regulatoryHurdles: 'Non-human use labels; liability insurance hurdles are significant.',
-    fundingLandscape: 'Bootstrapping common; Niche Angel investors in biochemical logistics.',
-    revenuePotential: '$2M/year potential',
+    id: 'noot-1',
+    title: 'Cognitive Peptide Concierge',
+    sector: Sector.CLINICAL,
+    description: 'Telehealth platform for executive performance, prescribing intranasal Semax, Selank, and Cerebrolysin protocols.',
+    regulatoryHurdles: 'Navigating off-label compounding regulations; strictly clinician-guided.',
+    fundingLandscape: 'High-net-worth target demographic; strong subscription potential.',
+    revenuePotential: '$300-$500/mo subscription',
     barrierToEntry: 'Medium',
     regulatoryRisk: 'Medium',
-    tags: ['E-commerce', 'B2B', 'Niche']
+    yieldScore: 6.5,
+    riskScore: 6.0,
+    tags: ['Nootropics', 'Peptides', 'Performance']
   },
   {
-    id: '4',
-    title: 'Holistic Wellness Hubs',
-    sector: Sector.CLINICAL,
-    description: 'Combine peptides with HRT/TRT, nutrition, and community to differentiate from "pill mills".',
-    regulatoryHurdles: 'CLIA waiver for in-house testing and local zoning for wellness centers.',
-    fundingLandscape: 'High LTV; attractive to family offices and franchise investors.',
-    revenuePotential: 'High LTV',
-    barrierToEntry: 'High',
-    regulatoryRisk: 'Medium',
-    tags: ['Brick & Mortar', 'Wellness', 'Premium']
-  },
-  {
-    id: '5',
-    title: 'Peptide Skincare Brand',
+    id: 'mito-1',
+    title: 'Mitochondrial Energy (MEO) Hubs',
     sector: Sector.PRODUCT,
-    description: 'Develop peptide-infused serums targeting collagen/wrinkles. $63B market opportunity.',
-    regulatoryHurdles: 'Cosmetic labeling vs drug claims; FTC advertising regulations.',
-    fundingLandscape: 'D2C-friendly; high potential for seed-round VC funding.',
-    revenuePotential: 'High Margins',
+    description: 'Subscription service for Urolithin A, NAD+ precursors, and CoQ10, coupled with cellular energy (ATP) testing.',
+    regulatoryHurdles: 'DSHEA compliance for supplement claims; FTC oversight on anti-aging marketing.',
+    fundingLandscape: 'High LTV; appealing to wellness-focused Angel syndicates.',
+    revenuePotential: '75% Gross Margin',
     barrierToEntry: 'Low',
     regulatoryRisk: 'Low',
-    tags: ['D2C', 'Beauty', 'Cosmetics']
+    yieldScore: 5.5,
+    riskScore: 2.5,
+    tags: ['Mitochondria', 'Supplements', 'NAD+']
   },
   {
-    id: '6',
-    title: 'White-Label Telehealth SaaS',
-    sector: Sector.TECH_SAAS,
-    description: 'Platform for clinics to handle prescriptions, EMR integration, and compliance.',
-    regulatoryHurdles: 'HIPAA/SOC2 compliance and multi-state medical parity laws.',
-    fundingLandscape: 'Classic SaaS metrics; High valuation multiples for high retention.',
-    revenuePotential: '$149-399/mo per provider',
+    id: 'pgdh-1',
+    title: '15-PGDH Inhibitor Therapeutics',
+    sector: Sector.REGENERATIVE,
+    description: 'Development of small molecule inhibitors to elevate Prostaglandin E2 (PGE2), reversing cartilage degeneration and sarcopenia.',
+    regulatoryHurdles: 'High FDA scrutiny for novel small molecules; Phase I/II safety trials required.',
+    fundingLandscape: 'Top-tier Biotech VC target due to massive osteoarthritis addressable market.',
+    revenuePotential: 'Billion-dollar Exit Potential',
+    barrierToEntry: 'Very High',
+    regulatoryRisk: 'High',
+    yieldScore: 9.8,
+    riskScore: 9.5,
+    tags: ['Osteoarthritis', 'Sarcopenia', 'Biotech']
+  },
+  {
+    id: 'neuro-1',
+    title: 'VNS Neuro-Recovery Centers',
+    sector: Sector.CLINICAL,
+    description: 'Clinics using non-invasive Vagus Nerve Stimulation (VNS) and Photobiomodulation for systemic inflammation and PTSD.',
+    regulatoryHurdles: 'FDA 510(k) clearance for devices; state medical board oversight.',
+    fundingLandscape: 'High growth in "Bio-Electronic" medicine; MedTech VC interest.',
+    revenuePotential: '$350/session',
+    barrierToEntry: 'High',
+    regulatoryRisk: 'Medium',
+    yieldScore: 7.2,
+    riskScore: 4.5,
+    tags: ['Bio-Electronics', 'Neurology', 'VNS']
+  },
+  {
+    id: 'bank-1',
+    title: 'Autologous Bio-Banking',
+    sector: Sector.REGENERATIVE,
+    description: 'Cryopreservation service for client\'s own adipose-derived stem cells and immune cells for future immunotherapies.',
+    regulatoryHurdles: 'FDA 21 CFR 1271 (HCT/Ps) compliance for autologous use.',
+    fundingLandscape: 'Asset-heavy startup costs; steady recurring revenue (storage fees).',
+    revenuePotential: '$2k Extraction + $500/yr',
     barrierToEntry: 'High',
     regulatoryRisk: 'Low',
-    tags: ['Software', 'B2B', 'Scale']
+    yieldScore: 6.8,
+    riskScore: 3.5,
+    tags: ['Stem Cells', 'Banking', 'Insurance']
+  },
+  {
+    id: 'reg-2',
+    title: 'Longevity Diagnostics Hub',
+    sector: Sector.REGENERATIVE,
+    description: 'Retail centers offering biological age testing (Epigenetic clocks), DEXA scans, and VO2 Max assessment.',
+    regulatoryHurdles: 'CLIA waiver for in-house blood work and state-level lab regulations.',
+    fundingLandscape: 'High LTV; attractive to franchise-model private equity.',
+    revenuePotential: '$1,200/initial assessment',
+    barrierToEntry: 'Medium',
+    regulatoryRisk: 'Low',
+    yieldScore: 6.0,
+    riskScore: 3.0,
+    tags: ['Diagnostics', 'Retail', 'Longevity']
+  },
+  {
+    id: 'desci-1',
+    title: 'DeSci IP-NFT Foundry',
+    sector: Sector.TECH_SAAS,
+    description: 'Incubator that funds "unpatentable" longevity molecules (e.g. Rapamycin) and tokenizes the resulting IP.',
+    regulatoryHurdles: 'SEC/FinCEN compliance for digital assets; complex IP licensing.',
+    fundingLandscape: 'Crypto-native VCs and Decentralized Autonomous Organizations (DAOs).',
+    revenuePotential: 'Equity + Royalty Stream',
+    barrierToEntry: 'Very High',
+    regulatoryRisk: 'Medium',
+    yieldScore: 9.0,
+    riskScore: 7.0,
+    tags: ['Web3', 'IP', 'DeSci']
+  },
+  {
+    id: 'micro-1',
+    title: 'Precision Microbiome Modulation',
+    sector: Sector.PRODUCT,
+    description: 'AI-driven gut sequencing paired with custom-compounded synbiotics and bacteriophages for metabolic health.',
+    regulatoryHurdles: 'GRAS status for supplements vs FDA biologic pathways for phages.',
+    fundingLandscape: 'Hot sector; significant VC interest in "Food as Medicine" tech.',
+    revenuePotential: '$150/mo + Testing',
+    barrierToEntry: 'Medium',
+    regulatoryRisk: 'Medium',
+    yieldScore: 5.8,
+    riskScore: 4.0,
+    tags: ['Microbiome', 'AI', 'Gut Health']
+  },
+  {
+    id: 'mat-1',
+    title: 'Intergenerational Epigenetic Coaching',
+    sector: Sector.TECH_SAAS,
+    description: 'AI platform for expectant mothers to optimize fetal epigenetics through targeted multi-omic intervention.',
+    regulatoryHurdles: 'HIPAA compliance; ethical review boards (IRB) for research-adjacent data.',
+    fundingLandscape: 'FemTech and Longevity cross-over; significant seed interest.',
+    revenuePotential: '$2k - $5k LTV',
+    barrierToEntry: 'Medium',
+    regulatoryRisk: 'Low',
+    yieldScore: 6.2,
+    riskScore: 2.0,
+    tags: ['FemTech', 'Epigenetics', 'AI']
   },
   {
     id: '7',
-    title: 'Contract Manufacturing (CMO)',
+    title: 'API Manufacturing (Peptides)',
     sector: Sector.MANUFACTURING,
-    description: 'Produce peptide APIs for pharma/biotech. Massive scale-up potential for vaccines/cosmetics.',
-    regulatoryHurdles: 'cGMP facility certification and ISO standards adherence.',
+    description: 'Scaling domestic production of high-purity Peptide APIs for compounding pharmacies.',
+    regulatoryHurdles: 'cGMP facility certification and DEA/ISO standards compliance.',
     fundingLandscape: 'Capital intensive; Private Equity and Government grants/subsidies.',
     revenuePotential: '$100M+ Capacity',
     barrierToEntry: 'Very High',
     regulatoryRisk: 'High',
-    tags: ['Industrial', 'Biotech', 'Pharma']
-  },
-  {
-    id: '8',
-    title: 'Bio-Data Marketplace',
-    sector: Sector.TECH_SAAS,
-    description: 'Enable patients to monetize their anonymized health data (DNA/Biomarkers) for biotech research.',
-    regulatoryHurdles: 'GDPR/CCPA/HIPAA data privacy and patient consent frameworks.',
-    fundingLandscape: 'Web3/Tech VCs interested in decentralized data ownership.',
-    revenuePotential: 'High Data Value',
-    barrierToEntry: 'Medium',
-    regulatoryRisk: 'Medium',
-    tags: ['Data', 'Web3', 'Research']
-  },
-  {
-    id: '9',
-    title: 'Regenerative Medicine Clinic',
-    sector: Sector.CLINICAL,
-    description: 'Focus on tissue repair and joint health using GHK-Cu, BPC-157, and MSC-derived exosomes.',
-    regulatoryHurdles: 'Strict regenerative claim restrictions; Investigational New Drug (IND) barriers.',
-    fundingLandscape: 'Premium cash-pay model; self-funding common due to high margins.',
-    revenuePotential: 'High Premium',
-    barrierToEntry: 'High',
-    regulatoryRisk: 'High',
-    tags: ['Regenerative', 'Clinical', 'Premium']
-  },
-  {
-    id: '10',
-    title: 'Personalized Nootropic Lab',
-    sector: Sector.MANUFACTURING,
-    description: 'On-demand production of cognitive peptide blends (Semax/Selank) customized via AI profile.',
-    regulatoryHurdles: 'Controlled substance analogues and state lab licenses.',
-    fundingLandscape: 'Early stage biohacking niche; mostly Angel or Crypto-wealth funded.',
-    revenuePotential: 'Premium Pricing',
-    barrierToEntry: 'Medium',
-    regulatoryRisk: 'High',
-    tags: ['Biohacking', 'Manufacturing']
-  },
-  {
-    id: '11',
-    title: 'DeSci IP Marketplace',
-    sector: Sector.TECH_SAAS,
-    description: 'Crowdfunded clinical trials for unpatentable longevity molecules via IP-NFTs.',
-    regulatoryHurdles: 'SEC securities laws vs utility tokens; IP ownership rights.',
-    fundingLandscape: 'Decentralized Autonomous Organizations (DAOs) and niche tech VCs.',
-    revenuePotential: 'Transaction Fees',
-    barrierToEntry: 'High',
-    regulatoryRisk: 'Low',
-    tags: ['Finance', 'Web3', 'Pharma']
-  },
-  {
-    id: '12',
-    title: 'DNA-Targeted Peptide Compounding',
-    sector: Sector.SUPPLY_CHAIN,
-    description: 'Next-gen pharmacy service that compounds metabolic and recovery peptides based on genomic testing.',
-    regulatoryHurdles: 'CLIA lab certification plus pharmacy board oversight.',
-    fundingLandscape: 'Precision medicine VCs; Strategic acquisition by diagnostic giants.',
-    revenuePotential: 'Massive Upsell',
-    barrierToEntry: 'Very High',
-    regulatoryRisk: 'High',
-    tags: ['Personalized', 'Compounding', 'B2C']
+    yieldScore: 8.5,
+    riskScore: 8.0,
+    tags: ['Manufacturing', 'Biotech', 'B2B']
   }
 ];
 
 export const RESEARCH_CONTEXT = `
 Context from research:
-1. Weight Loss Market: Projected $150B by 2030. Compound Semaglutide is the primary driver.
-2. Biohacking & Performance: Recovery peptides (BPC-157, TB-500) growing at 15% CAGR. Athletes moving from traditional opioids to peptide-based healing.
-3. Longevity & Anti-aging: Global focus on "Healthspan" vs Lifespan. Market shift towards epigentic testing + personalized interventions.
-4. Personalized Medicine: Consumer genomic testing ($2B market) creates demand for customized drug protocols (Pharmacogenomics).
-5. Research & Development: Open R&D laws in specific states (AZ/FL) allow for innovative "Phase 0" observational trials using decentralized models.
-6. Skincare: Topical peptides like GHK-Cu have 90% consumer trust ratings in luxury segments.
-7. Economics: Average acquisition cost (CAC) for a GLP-1 patient is $150-$250, but LTV exceeds $3,000.
-8. DeSci: Decentralized Science is emerging as a way to fund "Stage 0" trials for longevity molecules using blockchain for IP tracking.
-Regulatory: FDA 503A vs 503B compounding rules are the primary legal hurdle. "Research Only" label is a high-risk but high-speed entry strategy.
+1. Regenerative Medicine: MSC-derived exosomes for tissue remodeling. New focus on "Cell-Free" therapies.
+2. Cognitive Enhancement: Rising demand for "Nootropics 2.0" featuring intranasal peptides like Semax and Selank.
+3. 15-PGDH Inhibition: Emerging "Holy Grail" for regenerating cartilage/muscle via PGE2 restoration.
+4. Bio-Banking: "Biological Insurance" trend where patients bank young stem cells.
+5. Bio-Electronic Medicine: Vagus Nerve Stimulation (VNS) and Photobiomodulation (PBM) as "digital drugs".
+6. Microbiome: The "Gut-Brain Axis" market is shifting from generic probiotics to precision bacteriophage.
+7. DeSci: Use of IP-NFTs to fund research that traditional Big Pharma ignores.
+8. Economics: "Longevity-as-a-Service" models show 300% higher retention than traditional wellness programs.
 `;

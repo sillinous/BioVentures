@@ -20,16 +20,27 @@ const generatedPlanSchema = {
     },
     moatStrategy: {
       type: Type.STRING,
-      description: "The unique competitive advantage (e.g., specific skills integration, local regulatory arbitrage)."
+      description: "The unique competitive advantage. Be contrarian and specific to the location."
     },
-    riskRewardScore: {
-      type: Type.OBJECT,
-      properties: {
-        risk: { type: Type.NUMBER, description: "1-10 scale" },
-        reward: { type: Type.NUMBER, description: "1-10 scale" }
-      },
-      required: ["risk", "reward"],
-      propertyOrdering: ["risk", "reward"]
+    regulatoryRisk: { 
+      type: Type.NUMBER, 
+      description: "Decomposed score (1-10) for risk stemming from laws/FDA. 10 is impossible to execute." 
+    },
+    marketRisk: { 
+      type: Type.NUMBER, 
+      description: "Decomposed score (1-10) for risk of low demand or high competition." 
+    },
+    executionRisk: { 
+      type: Type.NUMBER, 
+      description: "Decomposed score (1-10) for operational complexity." 
+    },
+    financialReward: { 
+      type: Type.NUMBER, 
+      description: "Decomposed score (1-10) for potential profit margins and ROI. 10 is a unicorn." 
+    },
+    strategicReward: { 
+      type: Type.NUMBER, 
+      description: "Decomposed score (1-10) for potential IP creation or long-term moat." 
     },
     complianceNote: {
       type: Type.STRING,
@@ -38,7 +49,7 @@ const generatedPlanSchema = {
     stepsToLaunch: {
       type: Type.ARRAY,
       items: { type: Type.STRING },
-      description: "5 actionable, high-level strategic steps."
+      description: "5 actionable, high-level strategic steps with timelines."
     },
     competitorAnalysis: {
       type: Type.OBJECT,
@@ -62,6 +73,41 @@ const generatedPlanSchema = {
       },
       required: ["profiles", "suggestedSearchTerms"],
       propertyOrdering: ["profiles", "suggestedSearchTerms"]
+    },
+    financialTransparency: {
+      type: Type.OBJECT,
+      properties: {
+        startupCosts: {
+          type: Type.OBJECT,
+          properties: {
+            legal: { type: Type.STRING, description: "Estimate for compliance/incorporation" },
+            researchAndDev: { type: Type.STRING, description: "Estimate for R&D/Sourcing" },
+            marketing: { type: Type.STRING, description: "Estimate for initial CAC" }
+          },
+          required: ["legal", "researchAndDev", "marketing"],
+          propertyOrdering: ["legal", "researchAndDev", "marketing"]
+        },
+        pricingModel: { type: Type.STRING, description: "Proposed pricing (e.g. $299/mo subscription)" },
+        fundingOptions: { 
+          type: Type.ARRAY, 
+          items: { type: Type.STRING },
+          description: "Recommended funding paths"
+        },
+        projectedProfitMargins: {
+          type: Type.STRING,
+          description: "Estimated margins (e.g., 'High (60%+)', 'Medium (30-40%)', 'Low (<20%)')"
+        },
+        breakEvenTimeline: {
+          type: Type.STRING,
+          description: "Estimated time to profitability (e.g., '18-24 months')"
+        },
+        exitValuationEstimate: {
+          type: Type.STRING,
+          description: "Projected exit valuation based on sector multiples (e.g., '$50M - $200M')"
+        }
+      },
+      required: ["startupCosts", "pricingModel", "fundingOptions", "projectedProfitMargins", "breakEvenTimeline", "exitValuationEstimate"],
+      propertyOrdering: ["startupCosts", "pricingModel", "fundingOptions", "projectedProfitMargins", "breakEvenTimeline", "exitValuationEstimate"]
     }
   },
   required: [
@@ -69,20 +115,30 @@ const generatedPlanSchema = {
     "elevatorPitch", 
     "monetizationStrategy", 
     "moatStrategy", 
-    "riskRewardScore", 
+    "regulatoryRisk",
+    "marketRisk",
+    "executionRisk",
+    "financialReward",
+    "strategicReward",
     "complianceNote", 
     "stepsToLaunch",
-    "competitorAnalysis"
+    "competitorAnalysis",
+    "financialTransparency"
   ],
   propertyOrdering: [
     "businessName", 
     "elevatorPitch", 
     "monetizationStrategy", 
     "moatStrategy", 
-    "riskRewardScore", 
+    "regulatoryRisk",
+    "marketRisk",
+    "executionRisk",
+    "financialReward",
+    "strategicReward",
     "complianceNote", 
     "stepsToLaunch",
-    "competitorAnalysis"
+    "competitorAnalysis",
+    "financialTransparency"
   ]
 };
 
@@ -93,7 +149,7 @@ export const generateBusinessPlan = async (userContext: UserContext): Promise<Ai
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
   const prompt = `
-    You are a world-class Biotech Strategist and Partner at a Tier-1 VC firm.
+    You are a world-class Biotech Strategist and Partner at a Tier-1 VC firm specializing in REGENERATIVE HEALTH, BIO-ELECTRONICS, and LONGEVITY.
     
     RESEARCH NUGGETS:
     ${RESEARCH_CONTEXT}
@@ -106,17 +162,23 @@ export const generateBusinessPlan = async (userContext: UserContext): Promise<Ai
     - Business Model: ${userContext.businessModel}
 
     OBJECTIVE:
-    Generate a transformative business blueprint that exploits current regulatory openings in health and biotech.
-    
-    COMPETITOR ANALYSIS TASK:
-    Analyze the competitive landscape for this specific idea in ${userContext.location}. 
-    Provide 3 hypothetical or representative competitor profiles (Direct or Indirect).
-    Suggest 5 precise search terms for the user to conduct deep local market research.
+    Synthesize a transformative business blueprint. Specifically consider the following methodologies:
+    1. MITOCHONDRIAL HEALTH: Integrating NAD+, Urolithin A, and cellular energy testing.
+    2. BIO-ELECTRONICS: Vagus Nerve Stimulation (VNS) or Photobiomodulation (PBM).
+    3. DESCI: Tokenizing IP or licensing anonymized patient multi-omic data.
+    4. REGENERATIVE CLINICS: localized arbitrage using Phase 0 trial frameworks.
+
+    DECOMPOSED SCORING TASK (1-10):
+    - regulatoryRisk: How hard is the FDA/legal path for this multi-modal idea?
+    - marketRisk: Is the consumer ready for this "future health" concept?
+    - executionRisk: Complexity of managing biologics or advanced data platforms.
+    - financialReward: Potential for high-ticket cash-pay or exit via M&A.
+    - strategicReward: Long-term IP value or "first-mover" advantage in this specific location.
 
     STRATEGIC REQUIREMENTS:
-    1. PROPOSED MOAT: Identify a "moat" based on the user's specific location and skills.
-    2. REGULATORY ARBITRAGE: Suggest ways to navigate the 503A/503B compounding divide or "Research Only" paths safely.
-    3. NUMBERS: Provide realistic financial benchmarks based on the research context.
+    - Identify a localized "moat" based on ${userContext.location}.
+    - Suggest a way to use "Phase 0" or "Observational Trials" to safely scale clinical data.
+    - Be CONTRARIAN in the Moat Strategy. Don't just say "Quality", say "Exclusive License to X" or "Regulatory Sandbox in Y".
   `;
 
   try {
@@ -126,8 +188,8 @@ export const generateBusinessPlan = async (userContext: UserContext): Promise<Ai
       config: {
         responseMimeType: "application/json",
         responseSchema: generatedPlanSchema,
-        temperature: 0.75,
-        thinkingConfig: { thinkingBudget: 2000 }
+        temperature: 0.8,
+        thinkingConfig: { thinkingBudget: 4000 }
       }
     });
 
