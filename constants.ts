@@ -117,7 +117,7 @@ export const EXISTING_OPPORTUNITIES: BusinessOpportunity[] = [
     id: 'desci-1',
     title: 'DeSci IP-NFT Foundry',
     sector: Sector.TECH_SAAS,
-    description: 'Incubator that funds "unpatentable" longevity molecules (e.g. Rapamycin) and tokenizes the resulting IP.',
+    description: 'Incubator that funds "unpatentable" longevity molecules and tokenizes the resulting IP.',
     regulatoryHurdles: 'SEC/FinCEN compliance for digital assets; complex IP licensing.',
     fundingLandscape: 'Crypto-native VCs and Decentralized Autonomous Organizations (DAOs).',
     revenuePotential: 'Equity + Royalty Stream',
